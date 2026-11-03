@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Usuários</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <main id="content-area">
+    <section id="cadastro-usuario" class="section">
+      <h2>👤 Gestão de Usuários</h2>
+
+
+      <form id="form-usuario" class="formulario">
+        <input type="hidden" id="usuario-id" />
+
+
+        <div class="input-container">
+          <input type="number" id="usuario-matricula" class="input" placeholder=" " required />
+          <label for="usuario-matricula" class="label">Matrícula</label>
+          <span class="lupa" id="btn-pesq-matricula" title="Pesquisar por Matrícula">🔍</span>
+          <div class="topline"></div>
+          <div class="underline"></div>
+        </div>
+
+
+        <div class="input-container">
+          <input type="text" id="usuario-nome" class="input" placeholder=" " required />
+          <label for="usuario-nome" class="label">Nome Completo</label>
+          <span class="lupa" id="btn-pesq-nome" title="Pesquisar por Nome">🔍</span>
+          <div class="topline"></div>
+          <div class="underline"></div>
+        </div>
+
+
+        <div class="input-container">
+          <input type="text" id="usuario-cpf" class="input" placeholder=" " required />
+          <label for="usuario-cpf" class="label">CPF</label>
+          <span class="lupa" id="btn-pesq-cpf" title="Pesquisar por CPF">🔍</span>
+          <div class="topline"></div>
+          <div class="underline"></div>
+        </div>
+
+
+        <div class="input-container">
+          <input type="email" id="usuario-email" class="input" placeholder=" " required />
+          <label for="usuario-email" class="label">E-mail</label>
+          <div class="topline"></div>
+          <div class="underline"></div>
+        </div>
+
+
+        <div class="input-container">
+          <input type="tel" id="usuario-telefone" class="input" placeholder=" " />
+          <label for="usuario-telefone" class="label">Telefone</label>
+          <div class="topline"></div>
+          <div class="underline"></div>
+        </div>
+
+
+        <div class="btn-container">
+          <button type="submit" class="btn" id="btn-salvar-usuario"><span>Salvar</span></button>
+          <button type="button" id="btn-excluir-usuario" class="btn"><span>Excluir</span></button>
+          <button type="button" id="btn-limpar-usuario" class="btn"><span>Limpar</span></button>
+        </div>
+       
+      </form>
+    </section>
+  </main>
+<!-- MODAL PESQUISA DE USUÁRIO -->
+<div id="modal-pesquisa-nome" class="modal">
+  <div class="modal-card">
+    <h3>Usuários Encontrados</h3>
+    <p class="modal-subtitle">Clique no registro desejado para carregar os dados:</p>
+    
+    <div id="lista-usuarios-encontrados" class="modal-lista">
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" id="btn-fechar-modal" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
+  <script src="../script.js"></script>
+</body>
+</html>
+

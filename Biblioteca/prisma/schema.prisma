@@ -1,0 +1,68 @@
+// Configuração básica do datasource e generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // ou "mysql", dependendo do seu banco
+}
+
+model Livro {
+  livroID    Int        @id @default(autoincrement())
+  titulo     String     @db.VarChar(100)
+  subtitulo  String?    @db.VarChar(100) // Marcado como opcional (?)
+  autor      String     @db.VarChar(100)
+  genero     String     @db.VarChar(50)
+  editora    String     @db.VarChar(50)
+  edicao     String     @db.VarChar(2)
+  ano        Int
+  isbn       String     @unique // ISBN costuma ser único
+  
+  // Relacionamento reverso
+  movimentacoes MovLivro[]
+
+  @@map("livros") // Opcional: define o nome exato da tabela no banco
+}
+
+model Tipo {
+  idTipo    Int        @id @default(autoincrement())
+  descricao String     @db.VarChar(50)
+  
+  // Relacionamento reverso
+  movimentacoes MovLivro[]
+
+  @@map("tipos")
+}
+
+model Usuario {
+  usuarioID Int        @id @default(autoincrement())
+  nome      String     @db.VarChar(255)
+  matricula Int        @unique
+  cpf       String     @db.VarChar(11) @unique
+  email     String     @db.VarChar(100) @unique
+  telefone  String     @db.VarChar(11)
+  
+  // Relacionamento reverso
+  movimentacoes MovLivro[]
+
+  @@map("usuarios")
+}
+
+model MovLivro {
+  movimentacaoID Int      @id @default(autoincrement())
+  data           DateTime @default(now())
+  observacao     String?  @db.VarChar(255)
+
+  // Chaves Estrangeiras (FKs)
+  fkLivro   Int
+  fkUsuario Int
+  fkTipo    Int
+
+  // Relações
+  livro   Livro   @relation(fields: [fkLivro], references: [livroID])
+  usuario Usuario @relation(fields: [fkUsuario], references: [usuarioID])
+  tipo    Tipo    @relation(fields: [fkTipo], references: [idTipo])
+
+  @@map("mov_livros")
+}
+

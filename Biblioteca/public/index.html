@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblio Tech - Biblioteca Escolar</title>
+  <meta name="theme-color" content="#0b2447">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Biblio Tech">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="Sistema de gestão da biblioteca escolar Biblio Tech">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="img/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css?v=29" />
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <h1>Biblio Tech</h1>     
+      <div class="background" id="btn-menu" onclick="toggleMenu()">
+        <button class="menu__icon" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav id="main-nav" class="nav-menu hidden">    
+    <button onclick="navigate('pages/livros.html', this, 'renderLivros')">
+      📚 Gestão de Livros
+    </button>
+    <button onclick="navigate('pages/usuarios.html', this, 'renderUsuarios')">
+      👤 Gestão de Usuários
+    </button>
+    <button id="btn-login-admin">🔐 Acesso do administrador</button>
+    <button id="btn-logout-admin" hidden>↩ Sair do administrador</button>
+    <button data-acesso="adm" onclick="navigate('pages/emprestimos.html', this, 'renderEmprestimos')">
+      🔄 Empréstimos
+    </button>
+  </nav>
+
+  <main id="content-area">
+    <section class="welcome">
+      <h2>Bem-vindo à Biblioteca Escolar</h2>
+      <p>Selecione uma opção no menu acima para iniciar a gestão do sistema.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Escola Estadual Selim José de Sales</p>    
+    <p>R. Filisteu, 410 - Bethania, Ipatinga - MG, 35164-053</p>
+    <p>Telefone: (31) 3826-0104</p>
+  </footer>
+
+  <button id="btn-instalar-pwa" class="btn-instalar-pwa" hidden>📲 Instalar aplicativo</button>
+  <script src="script.js?v=20"></script>
+  <script src="pwa.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,643 @@
+/* ============================================================
+   🎓 Biblioteca Escolar — Tema Moderno e Responsivo
+   ============================================================ */
+
+/* -------- RESET -------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html, body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* -------- VARIÁVEIS -------- */
+:root {
+  --bg: #f5f8fa;
+  --text: #111;
+  --azul: #0B2447;
+  --azul-claro: #19376d;
+  --dourado: #FFD700;
+  --input-bg: #ffffff;
+  --border: #ccc;
+}
+
+body.dark {
+  --bg: #10131a;
+  --text: #f1f1f1;
+  --input-bg: #1b1f2a;
+  --border: #2e3545;
+}
+
+/* ============================================================
+   CABEÇALHO E MENU HAMBÚRGUER
+   ============================================================ */
+header {
+  background: linear-gradient(90deg, var(--azul), var(--azul-claro));
+  color: white;
+  padding: 15px 10px;
+  box-shadow: 0 4px 8px rgba(11, 36, 71, 0.5);
+  position: relative;
+  z-index: 1001; /* Fica acima de tudo (inclusive do menu lateral) */
+}
+
+.header-content {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* ===== MENU HAMBÚRGUER MODERNO ===== */
+.background {
+  border-radius: 16px;
+  border: 2px solid var(--dourado);
+  background: #19376d;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  backdrop-filter: blur(12px);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.background:hover {
+  transform: scale(1.08);
+}
+
+.menu__icon {
+  width: 24px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.menu__icon span {
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--dourado);
+  transition: transform 0.4s, background-color 0.4s, opacity 0.4s;
+}
+
+/* Estado ativo controlado via JS ao clicar */
+.menu__icon.active span:nth-child(1) {
+  background-color: #fff;
+  transform: translateY(8px) rotate(-45deg);
+}
+
+.menu__icon.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu__icon.active span:nth-child(3) {
+  background-color: #fff;
+  transform: translateY(-8px) rotate(45deg);
+}
+
+/* ===== MENU GAVETA LATERAL (MOBILE CORRIGIDO) ===== */
+.nav-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: 280px;
+  max-width: 80vw;
+  
+  /* CORREÇÃO DO CELULAR: Evita ultrapassar o rodapé limitando a altura */
+  height: calc(100vh - 51px); 
+  background-color: var(--azul);
+  border-left: 2px solid var(--dourado);
+  border-right: none;
+  z-index: 999; /* Fica abaixo do header, mas acima do conteúdo central */
+  
+  display: flex;
+  flex-direction: column;
+  padding-top: 90px; /* Espaço para não sumir atrás do header */
+  align-items: center;
+  gap: 15px;
+  
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4);
+  
+  /* Efeito de deslizamento vindo da direita */
+  transform: translateX(0); 
+  transition: transform 0.4s ease-in-out;
+}
+
+/* Esconde empurrando para fora da tela (para a direita) no mobile */
+.nav-menu.hidden {
+  display: flex; 
+  transform: translateX(110%); 
+}
+
+/* Estilo padrão dos botões da gaveta */
+.nav-menu button {
+  width: 85%;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover comum nos itens não ativos */
+.nav-menu button:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding-left: 20px;
+}
+
+/* Item selecionado */
+.nav-menu button.active {
+  background-color: var(--dourado) !important;
+  color: var(--azul) !important;
+  border-color: var(--dourado) !important;
+  font-weight: 700;
+  padding-left: 20px;
+  box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+}
+
+/* ============================================================
+   CONTEÚDO PRINCIPAL E FORMULÁRIOS
+   ============================================================ */
+main#content-area {
+  width: 90%;
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 25px;
+  background: var(--input-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(11, 36, 71, 0.3);
+  flex: 1;
+}
+
+.welcome {
+  text-align: center;
+  padding: 40px 10px;
+}
+
+.welcome p {
+  margin-top: 10px;
+  color: #555;
+}
+
+h2 {
+  text-align: center;
+  color: var(--azul);
+  margin-bottom: 20px;
+}
+
+body.dark h2 {
+  color: var(--dourado);
+}
+
+/* ===== INPUTS CENTRALIZADOS ===== */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 12px auto;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  height: 45px;
+  border: 2px solid var(--azul);
+  border-top: none;
+  border-bottom: none;
+  font-size: 16px;
+  color: var(--text);
+  background: var(--input-bg);
+  outline: none;
+  box-shadow: 6px 6px 0px 0px var(--azul);
+  transition: all 0.4s ease;
+  border-radius: 4px;
+}
+
+textarea.input {
+  height: auto;
+  min-height: 100px;
+  resize: vertical;
+}
+
+.input:focus {
+  box-shadow: 0 0 8px var(--azul);
+  border-color: var(--dourado);
+}
+
+.label {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  font-size: 14px;
+  color: var(--azul);
+  pointer-events: none;
+  transition: all 0.4s ease;
+  background: var(--input-bg);
+  padding: 0 5px;
+}
+
+body.dark .label {
+  color: #aaa;
+}
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: -10px;
+  left: 10px;
+  font-size: 13px;
+  color: var(--dourado);
+  font-weight: 600;
+}
+
+.lupa {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s;
+}
+
+.lupa:hover {
+  transform: scale(1.2);
+}
+
+.topline, .underline {
+  position: absolute;
+  height: 2px;
+  background-color: var(--azul);
+  width: 0;
+  transition: width 0.4s ease;
+}
+
+.topline { top: 0; right: 0; }
+.underline { bottom: 0; right: 0; }
+
+.input:focus ~ .topline { width: 35%; }
+.input:focus ~ .underline { width: 100%; }
+
+/* ===== BOTÕES CENTRALIZADOS ===== */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.btn {
+  background-color: var(--azul);
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px var(--dourado);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background-color: var(--dourado);
+  color: var(--azul);
+  box-shadow: 4px 4px 0px var(--azul);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   MODAL DE SELEÇÃO MÚLTIPLA E MODAIS GERAIS (NOVO VISUAL REATORADO)
+   ============================================================ */
+
+/* Máscara de fundo (Overlay) para todas as variações de Modal */
+.modal,
+#modal-selecao-multipla,
+#modal-dinamico-sistema {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 36, 71, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000; /* Fica acima do cabeçalho e do menu lateral */
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+/* Card centralizado da Modal */
+.modal-content,
+.modal-card,
+#modal-selecao-multipla .modal-card {
+  background-color: var(--input-bg);
+  color: var(--text);
+  padding: 24px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 520px;
+  border: 2px solid var(--azul);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  animation: modalFadeIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+body.dark .modal-content,
+body.dark .modal-card,
+body.dark #modal-selecao-multipla .modal-card {
+  border-color: var(--dourado);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Título principal da Modal */
+.modal-header h3,
+.modal-card h3,
+#modal-selecao-multipla h3,
+#modal-dinamico-titulo {
+  margin-top: 0;
+  margin-bottom: 6px;
+  color: var(--azul);
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-bottom: 3px solid var(--dourado);
+  padding-bottom: 8px;
+}
+
+body.dark .modal-header h3,
+body.dark .modal-card h3,
+body.dark #modal-selecao-multipla h3,
+body.dark #modal-dinamico-titulo {
+  color: var(--dourado);
+}
+
+/* Texto instrutivo dentro da Modal */
+.modal-card p,
+.modal-subtitle {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+body.dark .modal-card p,
+body.dark .modal-subtitle {
+  color: #a0aec0;
+}
+
+/* Conteúdo/Lista rolável de itens da Modal */
+.modal-body,
+.modal-lista,
+#modal-dinamico-lista {
+  max-height: 280px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding-right: 4px;
+}
+
+/* Personalização da Barra de Rolagem da Modal */
+.modal-body::-webkit-scrollbar,
+#modal-dinamico-lista::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-body::-webkit-scrollbar-thumb,
+#modal-dinamico-lista::-webkit-scrollbar-thumb {
+  background: var(--azul);
+  border-radius: 4px;
+}
+
+/* Card individual de seleção dentro da Modal */
+.item-selecao-modal,
+.modal-item-card {
+  background-color: var(--bg);
+  color: var(--text);
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--azul);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+body.dark .item-selecao-modal,
+body.dark .modal-item-card {
+  border-left-color: var(--dourado);
+}
+
+/* Efeito Hover nos itens da Modal */
+.item-selecao-modal:hover,
+.modal-item-card:hover {
+  background-color: var(--azul);
+  color: #ffffff !important;
+  border-color: var(--azul);
+  border-left-color: var(--dourado);
+  transform: translateX(4px);
+}
+
+.item-selecao-modal:hover *,
+.modal-item-card:hover * {
+  color: #ffffff !important;
+}
+
+/* Rodapé e Botões da Modal */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.btn-fechar-modal,
+.btn-cancelar,
+#btn-fechar-modal-dinamico {
+  background-color: #e53e3e;
+  color: #ffffff;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #9b2c2c;
+  transition: all 0.2s ease;
+}
+
+.btn-fechar-modal:hover,
+.btn-cancelar:hover,
+#btn-fechar-modal-dinamico:hover {
+  background-color: #c53030;
+  transform: translateY(-2px);
+  box-shadow: 3px 5px 0px #9b2c2c;
+}
+
+/* Animação de entrada da Modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   RODAPÉ
+   ============================================================ */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: var(--azul);
+  color: #fff;
+  font-size: 0.9rem;
+  margin-top: auto;
+  position: relative;
+  z-index: 1000; /* Garante que o rodapé sobreponha a gaveta mobile se necessário */
+}
+
+@media (max-width: 480px) {
+  header h1 { font-size: 1rem; }
+  .btn { width: 100%; text-align: center; }
+}
+
+/* ============================================================
+   🖥️ LAYOUT DESKTOP: INTERFACE GRID COM MENU SLIDER NA DIREITA
+   ============================================================ */
+@media (min-width: 768px) {
+  body {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "content sidebar"
+      "footer footer";
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr auto; 
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  header { 
+    grid-area: header; 
+  }
+  
+  footer { 
+    grid-area: footer; 
+  }
+  
+  main#content-area { 
+    grid-area: content; 
+    margin: 30px auto; 
+    width: 90%;
+    transition: margin 0.4s ease;
+  }
+
+  #btn-menu {
+    display: flex !important;
+  }
+
+  /* Reset estrutural para Desktop (O menu se torna uma coluna integrada ao Grid) */
+  .nav-menu {
+    grid-area: sidebar;
+    position: static; 
+    width: 260px;
+    max-width: 260px; 
+    height: 100%; /* No desktop ele preenche o espaço natural do Grid, sem bugar o footer */
+    border-radius: 0;
+    border: none;
+    border-left: 2px solid var(--dourado); 
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3); 
+    margin: 0;
+    padding-top: 30px; 
+    overflow: hidden;
+    white-space: nowrap; 
+    transform: none; 
+    transition: max-width 0.4s ease, border-width 0.4s ease, padding 0.4s ease;
+  }
+
+  /* Transição dinâmica ao fechar no desktop */
+  .nav-menu.hidden {
+    display: flex !important; 
+    max-width: 0; 
+    border-left-width: 0; 
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .nav-menu button {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Controles adicionados para Biblio Tech / PWA */
+.btn-instalar-pwa {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1000;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: #fff;
+  background: #0b2545;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
+  cursor: pointer;
+}
+.camera-area { margin: 12px 0 18px; }
+#status-leitor-isbn { font-size: .9rem; color: #334155; }
+#container-fila-reservas { margin-top: 12px; }
+#container-fila-reservas ol { padding-left: 24px; }
+
+
+/* Empréstimos: leitor ISBN, modais e cartões da fila */
+.isbn-linha { display:flex; align-items:center; gap:10px; }
+.isbn-linha .input-container { flex:1; min-width:0; }
+.btn-camera { min-width:52px; min-height:52px; border:0; border-radius:12px; background:#0b2545; color:#fff; font-size:22px; cursor:pointer; }
+.isbn-status { min-height:1.4em; margin:4px 0 12px; color:#334155; font-size:.9rem; }
+.cards-reservas { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+.card-reserva { background:#fff; border:1px solid #d7deea; border-left:5px solid #c99700; border-radius:10px; padding:14px; color:#14213d; }
+.card-reserva p { margin:6px 0; }
+#modal-camera-isbn, #modal-devolucao-didatico { display:none; position:fixed; inset:0; z-index:2000; align-items:center; justify-content:center; padding:18px; background:rgba(0,0,0,.65); }
+#modal-camera-isbn .modal-card, #modal-devolucao-didatico .modal-card { width:min(520px,100%); max-height:90vh; overflow:auto; background:#fff; color:#14213d; border-radius:14px; padding:20px; }
+#data-devolucao-didatico { display:block; width:100%; padding:10px; margin:8px 0 16px; }
+@media(max-width:560px){.isbn-linha{align-items:stretch}.btn-camera{min-width:48px}}

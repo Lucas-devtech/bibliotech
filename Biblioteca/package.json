@@ -1,0 +1,27 @@
+{
+  "name": "biblioteca",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "node api/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "node-notifier": "^10.0.1",
+    "pg": "^8.21.0"
+  },
+  "devDependencies": {
+    "prisma": "^7.6.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

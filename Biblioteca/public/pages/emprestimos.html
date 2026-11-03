@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empréstimos - Biblio Tech</title>
+  <link rel="stylesheet" href="../style.css?v=29">
+</head>
+<body>
+  <main id="content-area">
+    <section id="cadastro-emprestimo" class="section">
+      <h2>Gestão de Empréstimos</h2>
+      <form id="form-emprestimo" class="formulario" onsubmit="event.preventDefault();">
+        <input type="hidden" id="emprestimo-id">
+        <input type="hidden" id="mov-livro-id">
+        <input type="hidden" id="mov-usuario-id">
+
+        <div class="isbn-linha">
+          <div class="input-container">
+            <input type="text" id="mov-fk-livro" class="input" placeholder=" " autocomplete="off" required>
+            <label for="mov-fk-livro" class="label">Livro (ISBN ou Título)</label>
+            <span class="lupa" id="btn-pesq-mov-livro" title="Pesquisar Livro">🔍</span>
+            <div class="topline"></div><div class="underline"></div>
+          </div>
+          <button type="button" id="btn-camera-isbn" class="btn-camera" title="Ler código de barras com a câmera" aria-label="Ler ISBN pela câmera">📷</button>
+        </div>
+        <div id="isbn-status" class="isbn-status" role="status" aria-live="polite"></div>
+
+        <div class="input-container">
+          <input type="text" id="mov-fk-usuario" class="input" placeholder=" " required>
+          <label for="mov-fk-usuario" class="label">Usuário (Matrícula, Nome ou CPF)</label>
+          <span class="lupa" id="btn-pesq-mov-usuario" title="Pesquisar Usuário">🔍</span>
+          <div class="topline"></div><div class="underline"></div>
+        </div>
+
+        <div class="input-container">
+          <textarea id="mov-observacao" class="input" placeholder=" " rows="4"></textarea>
+          <label for="mov-observacao" class="label">Observações</label>
+          <div class="topline"></div><div class="underline"></div>
+        </div>
+
+        <div class="btn-container">
+          <button type="button" class="btn" id="btn-salvar-emprestimo"><span>Confirmar empréstimo</span></button>
+          <button type="button" id="btn-limpar-emprestimo" class="btn"><span>Limpar</span></button>
+        </div>
+      </form>
+
+      <div class="btn-container">
+        <button type="button" class="btn" id="btn-registrar-reserva">⏳ Entrar na fila de reservas</button>
+        <button type="button" class="btn" id="btn-consultar-fila">Ver fila do livro selecionado</button>
+      </div>
+
+      <section id="secao-reservas-mov" class="section" hidden style="margin-top:28px">
+        <h3>Fila de reservas</h3>
+        <p id="reservas-mov-resumo">Reservas aguardando retirada.</p>
+        <div id="container-cards-reservas" class="cards-reservas"></div>
+        <div id="container-fila-reservas" aria-live="polite"></div>
+      </section>
+
+      <section id="secao-emprestimos-ativos" style="margin-top:35px">
+        <h3>Empréstimos ativos do usuário</h3>
+        <div id="container-cards-emprestimos" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:15px;margin-top:15px"></div>
+      </section>
+    </section>
+  </main>
+
+  <div id="modal-camera-isbn" class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-camera">
+    <div class="modal-card">
+      <h3 id="titulo-modal-camera">Ler ISBN pela câmera</h3>
+      <video id="video-isbn" playsinline style="width:100%;max-width:460px;border-radius:10px"></video>
+      <p id="status-camera-isbn" role="status" aria-live="polite">Aponte a câmera para o código de barras.</p>
+      <div class="modal-footer"><button type="button" id="btn-fechar-camera-isbn" class="btn-cancelar">Fechar câmera</button></div>
+    </div>
+  </div>
+
+  <div id="modal-devolucao-didatico" class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-didatico">
+    <div class="modal-card">
+      <h3 id="titulo-modal-didatico">Data de devolução do didático</h3>
+      <p>Informe uma data posterior a hoje, limitada a dois anos.</p>
+      <label for="data-devolucao-didatico">Data de devolução</label>
+      <input type="date" id="data-devolucao-didatico">
+      <div class="modal-footer">
+        <button type="button" id="btn-confirmar-data-didatico" class="btn">Confirmar empréstimo</button>
+        <button type="button" id="btn-cancelar-data-didatico" class="btn-cancelar">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-selecao-multipla" class="modal">
+    <div class="modal-card">
+      <h3 id="modal-titulo">Registros Encontrados</h3>
+      <p class="modal-subtitle">Clique no registro desejado para carregar os dados no formulário:</p>
+      <div id="lista-registros-encontrados" class="modal-lista"></div>
+      <div class="modal-footer"><button type="button" id="btn-fechar-modal" class="btn-cancelar" onclick="fecharModalSelecao()">Cancelar</button></div>
+    </div>
+  </div>
+</body>
+</html>
